@@ -540,12 +540,10 @@ class MWAcquisitionOptimizer(AcquisitionOptimizer):
 def weights_update(curr_weight, eta_factor, T, optimal_Y, K, f, x, combined_domain, i):
     #print(f"Thread {i} starting")
     x = x.copy()
-    x_list = []
-    for k in range(K):
-        x[i] = combined_domain[k]
-        x_list.append(x.copy())
+    x_array = np.array([x] * K)
+    x_array[:, i] = combined_domain
 
-    y_hat = np.minimum(optimal_Y, np.array(-f(np.array(x_list))).squeeze())
+    y_hat = np.minimum(optimal_Y, np.array(-f(x_array)).squeeze())
 
     curr_weight = curr_weight * np.exp(-np.sqrt(eta_factor*np.log(K)/T)*(optimal_Y-y_hat))
     curr_weight = curr_weight / np.sum(curr_weight)
