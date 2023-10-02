@@ -1,0 +1,34 @@
+algorithm_type:
+  Algorithm:
+    algorithm: GPMW
+    acquisition_optimizer: 'MW'
+    algorithm_random_seed: 3
+    eps: -1
+    exploration_weight: 'lambda t: 0.5 * np.log(2*t)'
+    graphSamplingNumIter: 100
+    initial_kernel_params:
+      lengthscale: 0.1
+      variance: 0.5
+    learnDependencyStructureRate: -1
+    initial_graph: [[0,1], [1,2], [2,3], [3,4], [4,5], [5,6], [6,7], [7,8], [8,9]]
+    eta_factor: 1
+    T: 1000
+    lengthscaleNumIter: 2
+    max_eval: 1000
+    noise_var: 0.1
+    param_n_iter: 16
+data_type:
+  Synthetic:
+    data_random_seed: 0
+    dimension: 10
+    fn_noise_var: 0.15
+    graph_type: PathGraph
+    grid_params:
+      domain_lower: 0.0
+      domain_upper: 1.0
+      grid_size: 50
+    kernel_params:
+      lengthscale: 0.2
+      variance: 1.0
+n_iter: 1000
+n_rand: 10
