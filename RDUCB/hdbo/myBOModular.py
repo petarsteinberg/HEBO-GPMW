@@ -137,6 +137,7 @@ class MyBOModular(BOStopper):
         self.domain = domain
 
         acquisition_optimizer_type = additional_args.get('acquisition_optimizer', 'MP')
+        acquisition_function_type = additional_args.get('acquisition_function', 'AddLCB')
         ensemble_samples = additional_args.get('ensemble_samples', 1)
         size_of_random_graph = additional_args.get('size_of_random_graph', None)
         
@@ -158,7 +159,7 @@ class MyBOModular(BOStopper):
             self.acquisition_optimizer = AcquisitionOptimizer(domain, optimizer=acquisition_optimizer_type)
 
         ## !!! models inside acqu1 must be the same as models in MyModel !!! -> Ok in Python, the object are references, not copied
-        self.acquisition = MyAcquisitionModular(self.model, self.acquisition_optimizer, domain)
+        self.acquisition = MyAcquisitionModular(self.model, self.acquisition_optimizer, domain, addlcb=acquisition_function_type=="AddLCB")
         self.evaluator = Sequential(self.acquisition)
         
         self.modular_optimization = False
